@@ -89,6 +89,21 @@ End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Method, Flags = &h0
+		Sub activate()
+		  isActive = true
+		  Label1.TextColor = &c00000200
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub deactivate()
+		  isActive = false
+		  Label1.TextColor = kClickColor
+		End Sub
+	#tag EndMethod
+
+
 	#tag Hook, Flags = &h0
 		Event Clicked()
 	#tag EndHook
@@ -103,14 +118,27 @@ End
 		caption As string
 	#tag EndComputedProperty
 
+	#tag Property, Flags = &h21
+		Private isActive As boolean = true
+	#tag EndProperty
+
+
+	#tag Constant, Name = kClickColor, Type = Color, Dynamic = False, Default = \"&cA1A19900", Scope = Private
+	#tag EndConstant
+
 
 #tag EndWindowCode
 
 #tag Events Label1
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
-		  bg.FillColor = &c504F4F00
-		  return true
+		  if isActive then 
+		    bg.FillColor = kClickColor
+		    return true
+		    
+		  end if
+		  
+		  return false
 		End Function
 	#tag EndEvent
 	#tag Event

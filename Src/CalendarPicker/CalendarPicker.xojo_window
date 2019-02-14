@@ -73,7 +73,7 @@ Begin ContainerControl CalendarPicker
          TabIndex        =   0
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "January"
+         Text            =   "Month"
          TextAlign       =   1
          TextColor       =   &c00000200
          TextFont        =   "System"
@@ -330,7 +330,7 @@ Begin ContainerControl CalendarPicker
          Visible         =   True
          Width           =   32
       End
-      Begin AdvanceButton AdvanceButton1
+      Begin AdvanceButton MonthForwardButton
          AcceptFocus     =   False
          AcceptTabs      =   True
          AutoDeactivate  =   True
@@ -359,7 +359,7 @@ Begin ContainerControl CalendarPicker
          Visible         =   True
          Width           =   32
       End
-      Begin AdvanceButton AdvanceButton2
+      Begin AdvanceButton MonthBackButton
          AcceptFocus     =   False
          AcceptTabs      =   True
          AutoDeactivate  =   True
@@ -406,8 +406,192 @@ End
 
 
 	#tag Method, Flags = &h21
+		Private Sub clearHighlight()
+		  for ii as integer = 0 to UBound(days)
+		    days(ii).clearHighlight()
+		    
+		  next
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function compareDayToShowingDate(dd as xojo.core.date) As integer
+		  dim showingFirstDay as Xojo.Core.Date = new Xojo.Core.Date(showingYear, showingMonth, 1, 0, 0, 0, 1, xojo.core.TimeZone.Current)
+		  dim showingLastDay as Xojo.Core.Date = new Xojo.Core.Date(showingYear, showingMonth, getNumberOfDaysInMonth(showingFirstDay), 0, 0, 0, 1, xojo.core.TimeZone.Current)
+		  
+		  if dd.compareTo(showingFirstDay) < 0 then
+		    return -1
+		    
+		  elseif dd.compareTo(showingLastDay) > 0 then
+		    return 1
+		    
+		  else
+		    return 0
+		    
+		  end if
+		  
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub destructor()
+		  for ii as integer = 0 to UBound(days)
+		    RemoveHandler days(ii).ClickedOn, Addressof handleDayClickedOn
+		    
+		  next
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function getEndDate() As xojo.core.date
+		  if endDate = Nil and not isMultiday then
+		    Return startdate
+		    
+		  end if
+		  
+		  return enddate
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function getIndexForDate(dd as xojo.core.date) As integer
+		  select case compareDayToShowingDate(dd)
+		  case -1
+		    return -1 
+		    
+		  case 1
+		    return 100
+		    
+		  case 0
+		    return mapDayToIndex(dd.Day)
+		    
+		  end select
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function getStartDate() As xojo.core.date
+		  return startDate
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
 		Private Sub handleDayClickedOn(value as CalendarDay, day as integer)
-		  //TODO
+		  if isMultiday then
+		    multidaySelect(day)
+		    
+		  else
+		    singleDaySelect(day)
+		    
+		  end if
+		  
+		  highlight()
+		  RaiseEvent DateSelected
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub highlight()
+		  if startDate <> Nil then
+		    dim startIndex,endIndex as integer
+		    if startDate <> Nil then 
+		      startIndex = getIndexForDate(startDate)
+		      
+		    else
+		      startIndex = 100
+		      
+		    end if
+		    
+		    if enddate <> Nil then 
+		      endIndex = getIndexForDate(endDate)
+		      
+		    else
+		      endIndex = startIndex
+		      
+		    end if
+		    
+		    for ii as integer = 0 to UBound(days)
+		      if ii = startIndex then 
+		        if startIndex <> endIndex then
+		          days(ii).highlightStart
+		          
+		        else
+		          days(ii).highlight()
+		          
+		        end if
+		        
+		      elseif ii > startIndex and ii < endIndex then
+		        days(ii).highlightMiddle()
+		        
+		      elseif ii = endIndex then 
+		        days(ii).highlightEnd()
+		        
+		      else
+		        days(ii).clearHighlight()
+		        
+		      end if
+		      
+		    next
+		    
+		  end if
+		  
+		  'end if
+		  
+		  'if startDate <> Nil then
+		  'dim startIndex, endIndex as integer
+		  'if isShowing(startDate) then
+		  'startIndex = mapDayToIndex(startDate.Day)
+		  '
+		  'end if
+		  '
+		  'if isShowing(endDate) then
+		  'endIndex = mapDayToIndex(endDate.day)
+		  '
+		  'else
+		  'if isMultiday then
+		  'endIndex = ubound(days)
+		  '
+		  'else
+		  'endIndex = startIndex
+		  '
+		  'end if
+		  '
+		  'end if
+		  '
+		  'if startIndex = endIndex then
+		  'for ii as integer = 0 to UBound(days)
+		  'if ii < startIndex or ii > startIndex then 
+		  'days(ii).clearHighlight()
+		  '
+		  'else
+		  'days(ii).highlight()
+		  '
+		  'end if
+		  '
+		  'next
+		  '
+		  'else
+		  'for ii as integer = 0 to UBound(days)
+		  'if ii = startIndex then 
+		  'days(ii).highlightStart()
+		  '
+		  'ElseIf ii > startIndex and ii < endIndex then
+		  'days(ii).highlightMiddle()
+		  '
+		  'ElseIf ii = endIndex then
+		  'days(ii).highlightEnd()
+		  '
+		  'else
+		  'days(ii).clearHighlight()
+		  '
+		  'end if
+		  '
+		  'next
+		  '
+		  'end if
+		  '
+		  'end if
 		End Sub
 	#tag EndMethod
 
@@ -416,7 +600,7 @@ End
 		  dim currentLeft, currentTop as integer 
 		  for ii as integer = 0 to kMaxDays - 1
 		    dim cd as new CalendarDay()
-		    AddHandler cd.DayClickedOn, AddressOf handleDayClickedOn
+		    AddHandler cd.ClickedOn, AddressOf handleDayClickedOn
 		    currentTop = (ii \ (kWeekCount)) * kPadding + (ii \ (kWeekCount)) * kDayHeight + (Label1.Top + label1.Height)
 		    currentLeft = (ii mod kWeekCount) * kDayWidth
 		    cd.EmbedWithin(Rectangle1,  currentLeft, currentTop, cd.Width, cd.Height)
@@ -448,6 +632,44 @@ End
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Sub multidaySelect(day as integer)
+		  dim selectedDay as Xojo.Core.Date = new Xojo.Core.Date(showingYear, showingMonth, day, 0, 0, 0, 1, xojo.core.TimeZone.Current)
+		  if startDate <> Nil then
+		     select case selectedDay.compareTo(startdate)
+		    case -1
+		      startDate = selectedDay
+		      endDate = nil
+		      
+		    case 1
+		      if enddate <> Nil then 
+		        if enddate.compareTo(selectedDay) > 0 then
+		          endDate = selectedDay
+		          
+		        else
+		          startDate = selectedDay
+		          enddate = nil
+		          
+		        end if
+		        
+		      else
+		        enddate = selectedDay
+		        
+		      end if
+		      
+		    case 0 
+		      enddate = startDate
+		      
+		    end Select
+		    
+		  else
+		    startDate = selectedDay
+		    
+		  end if
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Sub setHighlightColor(cc as color)
 		  for ii as integer = 0 to UBound(days)
@@ -467,8 +689,6 @@ End
 		    showingMonth = showingMonth + 1
 		    
 		  end if
-		  
-		  MonthLabel.text = DateModule.integerToMonth(showingMonth)
 		End Sub
 	#tag EndMethod
 
@@ -518,9 +738,41 @@ End
 		  end if
 		  
 		  MonthLabel.text = DateModule.integerToMonth(showingMonth)
+		  if showingMonth = today.Month and showingYear = today.Year then
+		    MonthBackButton.deactivate()
+		    
+		  else
+		    MonthBackButton.activate()
+		    
+		  end if
+		  
+		  highlight()
 		  
 		End Sub
 	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub showDate(sDate as xojo.core.date, optional eDate as xojo.core.date)
+		  startdate = sDate
+		  enddate = edate
+		  showingYear = sDate.year
+		  showingMonth = sDate.Month
+		  setUIForShowingDate()
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub singleDaySelect(day as integer)
+		  startDate = new Xojo.Core.Date(showingYear, showingMonth, day, 0, 0, 0, 1, xojo.core.TimeZone.Current)
+		  endDate = startDate
+		  
+		End Sub
+	#tag EndMethod
+
+
+	#tag Hook, Flags = &h0
+		Event DateSelected()
+	#tag EndHook
 
 
 	#tag Property, Flags = &h21
@@ -543,8 +795,8 @@ End
 		Private highlightTint As color
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
-		Private isMultiday As boolean
+	#tag Property, Flags = &h0
+		isMultiday As boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
@@ -578,7 +830,7 @@ End
 
 #tag EndWindowCode
 
-#tag Events AdvanceButton1
+#tag Events MonthForwardButton
 	#tag Event
 		Sub Open()
 		  me.caption = ">"
@@ -591,7 +843,7 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events AdvanceButton2
+#tag Events MonthBackButton
 	#tag Event
 		Sub Open()
 		  me.caption = "<"
@@ -791,5 +1043,10 @@ End
 		InitialValue="False"
 		Type="Boolean"
 		EditorType="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="isMultiday"
+		Group="Behavior"
+		Type="boolean"
 	#tag EndViewProperty
 #tag EndViewBehavior

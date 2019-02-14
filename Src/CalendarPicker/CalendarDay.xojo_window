@@ -170,7 +170,7 @@ End
 
 	#tag Method, Flags = &h21
 		Private Function getTint(cc as Color) As color
-		  const kTintFactor = .25
+		  const kTintFactor = .75
 		  dim rr,gg,bb as integer 
 		  
 		  rr = cc.Red + (255 - cc.red) * kTintFactor
@@ -179,6 +179,14 @@ End
 		  
 		  return RGB(rr, gg, bb)
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub highlight()
+		  Foreground.FillColor = highlightColor
+		  BGLeft.FillColor = kBgColor
+		  BGRight.FillColor = kBgColor
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -242,7 +250,7 @@ End
 
 
 	#tag Hook, Flags = &h0
-		Event DayClickedOn(day as integer)
+		Event ClickedOn(day as integer)
 	#tag EndHook
 
 
@@ -280,7 +288,7 @@ End
 	#tag Event
 		Sub MouseUp(X As Integer, Y As Integer)
 		  if isActive then
-		    RaiseEvent DayClickedOn(val(me.text))
+		    RaiseEvent ClickedOn(val(me.text))
 		    
 		  end if
 		End Sub
@@ -288,7 +296,7 @@ End
 	#tag Event
 		Sub MouseEnter()
 		  if isActive then
-		    Foreground.BorderWidth = 1
+		    Foreground.BorderWidth = 2
 		    
 		  end if
 		  
