@@ -14,7 +14,7 @@ A customizable single and multiday date picker control for Xojo projects.
 ## Functions
 * Allow single date selection
 * Allow multidate selection
-* Leap year complient
+* Leap year compliant
 * Easily customizable color schemes
 * Force selection of present dates or allow all possible dates
         
