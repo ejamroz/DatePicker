@@ -67,7 +67,7 @@ Begin Window Window1
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   92
+      Left            =   20
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -81,7 +81,7 @@ Begin Window Window1
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   6
+      Top             =   4
       Transparent     =   False
       Underline       =   False
       Value           =   False
@@ -244,10 +244,66 @@ Begin Window Window1
       Visible         =   True
       Width           =   145
    End
+   Begin CheckBox CheckBox2
+      AutoDeactivate  =   True
+      Bold            =   False
+      Caption         =   "Allow past dates"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   122
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   2
+      State           =   0
+      TabIndex        =   7
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   4
+      Transparent     =   False
+      Underline       =   False
+      Value           =   False
+      Visible         =   True
+      Width           =   122
+   End
 End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Method, Flags = &h21
+		Private Sub getDates()
+		  using xojo.core
+		  
+		  if CalendarPicker1.getStartDate() <> Nil then
+		    StartDateField.Text = CalendarPicker1.getStartDate().ToText(Locale.Current, Date.FormatStyles.long, Date.FormatStyles.None)
+		    
+		  else
+		    StartDateField.Text = ""
+		    
+		  end if
+		  
+		  if CalendarPicker1.getEndDate() <> Nil then
+		    EndDateField.Text = CalendarPicker1.getEndDate().ToText(Locale.Current, Date.FormatStyles.long, Date.FormatStyles.None)
+		    
+		  else
+		    EndDateField.text = ""
+		    
+		  end if
+		End Sub
+	#tag EndMethod
+
+
 #tag EndWindowCode
 
 #tag Events CalendarPicker1
@@ -273,7 +329,16 @@ End
 #tag Events CheckBox1
 	#tag Event
 		Sub Action()
-		  CalendarPicker1.isMultiday = me.Value
+		  CalendarPicker1.allowMultiDay = me.Value
+		  getDates()
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBox2
+	#tag Event
+		Sub Action()
+		  CalendarPicker1.allowPastDates = me.Value
+		  getDates()
 		End Sub
 	#tag EndEvent
 #tag EndEvents

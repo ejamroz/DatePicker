@@ -456,17 +456,23 @@ End
 
 	#tag Method, Flags = &h21
 		Private Function getIndexForDate(dd as xojo.core.date) As integer
-		  select case compareDayToShowingDate(dd)
-		  case -1
+		  if dd <> Nil then 
+		    select case compareDayToShowingDate(dd)
+		    case -1
+		      return -1 
+		      
+		    case 1
+		      return 100
+		      
+		    case 0
+		      return mapDayToIndex(dd.Day)
+		      
+		    end select
+		    
+		  else
 		    return -1 
 		    
-		  case 1
-		    return 100
-		    
-		  case 0
-		    return mapDayToIndex(dd.Day)
-		    
-		  end select
+		  end if
 		End Function
 	#tag EndMethod
 
@@ -493,8 +499,11 @@ End
 
 	#tag Method, Flags = &h21
 		Private Sub highlight()
+		  dim startIndex,endIndex as integer
+		  startIndex = -1
+		  endIndex = -1
+		  
 		  if startDate <> Nil then
-		    dim startIndex,endIndex as integer
 		    if startDate <> Nil then 
 		      startIndex = getIndexForDate(startDate)
 		      
@@ -511,87 +520,30 @@ End
 		      
 		    end if
 		    
-		    for ii as integer = 0 to UBound(days)
-		      if ii = startIndex then 
-		        if startIndex <> endIndex then
-		          days(ii).highlightStart
-		          
-		        else
-		          days(ii).highlight()
-		          
-		        end if
-		        
-		      elseif ii > startIndex and ii < endIndex then
-		        days(ii).highlightMiddle()
-		        
-		      elseif ii = endIndex then 
-		        days(ii).highlightEnd()
+		  end if
+		  
+		  for ii as integer = 0 to UBound(days)
+		    if ii = startIndex then 
+		      if startIndex <> endIndex then
+		        days(ii).highlightStart
 		        
 		      else
-		        days(ii).clearHighlight()
+		        days(ii).highlight()
 		        
 		      end if
 		      
-		    next
+		    elseif ii > startIndex and ii < endIndex then
+		      days(ii).highlightMiddle()
+		      
+		    elseif ii = endIndex then 
+		      days(ii).highlightEnd()
+		      
+		    else
+		      days(ii).clearHighlight()
+		      
+		    end if
 		    
-		  end if
-		  
-		  'end if
-		  
-		  'if startDate <> Nil then
-		  'dim startIndex, endIndex as integer
-		  'if isShowing(startDate) then
-		  'startIndex = mapDayToIndex(startDate.Day)
-		  '
-		  'end if
-		  '
-		  'if isShowing(endDate) then
-		  'endIndex = mapDayToIndex(endDate.day)
-		  '
-		  'else
-		  'if isMultiday then
-		  'endIndex = ubound(days)
-		  '
-		  'else
-		  'endIndex = startIndex
-		  '
-		  'end if
-		  '
-		  'end if
-		  '
-		  'if startIndex = endIndex then
-		  'for ii as integer = 0 to UBound(days)
-		  'if ii < startIndex or ii > startIndex then 
-		  'days(ii).clearHighlight()
-		  '
-		  'else
-		  'days(ii).highlight()
-		  '
-		  'end if
-		  '
-		  'next
-		  '
-		  'else
-		  'for ii as integer = 0 to UBound(days)
-		  'if ii = startIndex then 
-		  'days(ii).highlightStart()
-		  '
-		  'ElseIf ii > startIndex and ii < endIndex then
-		  'days(ii).highlightMiddle()
-		  '
-		  'ElseIf ii = endIndex then
-		  'days(ii).highlightEnd()
-		  '
-		  'else
-		  'days(ii).clearHighlight()
-		  '
-		  'end if
-		  '
-		  'next
-		  '
-		  'end if
-		  '
-		  'end if
+		  next
 		End Sub
 	#tag EndMethod
 
@@ -729,7 +681,7 @@ End
 		  next
 		  
 		  dim today as Xojo.Core.Date = xojo.core.Date.Now()
-		  if isShowing(today) then
+		  if not mAllowPast and isShowing(today) then
 		    for ii as integer = firstDayIndex to mapDayToIndex(today.Day)
 		      days(ii).deactivate()
 		      
@@ -738,7 +690,8 @@ End
 		  end if
 		  
 		  MonthLabel.text = DateModule.integerToMonth(showingMonth)
-		  if showingMonth = today.Month and showingYear = today.Year then
+		  
+		  if not mAllowPast and showingMonth = today.Month and showingYear = today.Year then
 		    MonthBackButton.deactivate()
 		    
 		  else
@@ -775,6 +728,55 @@ End
 	#tag EndHook
 
 
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return isMultiday
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  isMultiday = value
+			  if not isMultiday then
+			    enddate = startDate
+			    
+			  end if
+			  
+			  setUIForShowingDate()
+			End Set
+		#tag EndSetter
+		allowMultiDay As boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return mAllowPast
+			  
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mAllowPast = value
+			  dim today as Xojo.Core.Date = xojo.core.date.Now()
+			  if startdate <> nil and startDate.compareTo(today) = -1 then
+			    startdate = nil
+			    enddate = nil
+			    
+			  end if
+			  
+			  if (showingMonth < today.Month and showingYear = today.Year) or showingyear < today.year then
+			    showingYear = today.year
+			    showingMonth = today.month
+			    
+			  end if
+			  
+			  setUIForShowingDate()
+			End Set
+		#tag EndSetter
+		allowPastDates As boolean
+	#tag EndComputedProperty
+
 	#tag Property, Flags = &h21
 		Private days() As CalendarDay
 	#tag EndProperty
@@ -795,8 +797,12 @@ End
 		Private highlightTint As color
 	#tag EndProperty
 
-	#tag Property, Flags = &h0
-		isMultiday As boolean
+	#tag Property, Flags = &h21
+		Private isMultiday As boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private mAllowPast As boolean = false
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
@@ -1045,7 +1051,12 @@ End
 		EditorType="Boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="isMultiday"
+		Name="allowMultiDay"
+		Group="Behavior"
+		Type="boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="allowPastDates"
 		Group="Behavior"
 		Type="boolean"
 	#tag EndViewProperty
