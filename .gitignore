@@ -2,3 +2,4 @@
 Src/.DS_Store
 Src/Builds*
 Src/*obsolete*
+Src/*.debug*
