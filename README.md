@@ -18,5 +18,6 @@ A customizable single and multiday date picker control for Xojo projects.
 * Easily customizable color schemes
 * Force selection of present dates or allow all possible dates
         
-## Disclaimer
-It has only been tested on OSX systems.
+## Disclaimers
+* It has only been tested on OSX systems
+* It is a fixed size currently, in the future I would like to make it dynamically resizable
