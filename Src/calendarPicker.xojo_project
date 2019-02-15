@@ -2,7 +2,6 @@ Type=Desktop
 RBProjectVersion=2018.04
 MinIDEVersion=20070100
 Class=InvalidArgumentException;Dependencies/DateModule/InvalidArgumentException.xojo_code;&h000000001C0827FF;&h00000000457BD7FF;false
-Class=Time;Dependencies/DateModule/Time.xojo_code;&h000000006763AFFF;&h00000000457BD7FF;false
 Class=App;App.xojo_code;&h000000002E0CA7FF;&h0000000000000000;false
 Window=Window1;Window1.xojo_window;&h00000000763EB7FF;&h0000000000000000;false
 MenuBar=MainMenuBar;MainMenuBar.xojo_menu;&h000000000C9237FF;&h0000000000000000;false
