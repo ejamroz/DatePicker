@@ -2,13 +2,13 @@
 A customizable single and multiday date picker control for Xojo projects.
 
 <span>
-  <img src="/Graphics/singleDayShot.png" alt="drawing" width="200"/>
+  <img src="/Graphics/singleDayShot.png" alt="drawing" width="200" height="295"/>
 </span>
 <span>
-  <img src="/Graphics/multiDayShot.png" alt="drawing" width="200"/>
+  <img src="/Graphics/multiDayShot.png" alt="drawing" width="200" height="295"/>
 </span>
 <span>
-  <img src="/Graphics/allDatesScreenShot.png" alt="drawing" width="200"/>
+  <img src="/Graphics/allDatesScreenShot.png" alt="drawing" width="200" height="295"/>
 </span>
 
 ## Functions
