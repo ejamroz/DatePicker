@@ -336,6 +336,7 @@ Begin ContainerControl CalendarPicker
          AutoDeactivate  =   True
          BackColor       =   &cFFFFFF00
          Backdrop        =   0
+         caption         =   ""
          DoubleBuffer    =   False
          Enabled         =   True
          EraseBackground =   True
@@ -365,6 +366,7 @@ Begin ContainerControl CalendarPicker
          AutoDeactivate  =   True
          BackColor       =   &cFFFFFF00
          Backdrop        =   0
+         caption         =   ""
          DoubleBuffer    =   False
          Enabled         =   True
          EraseBackground =   True
@@ -588,7 +590,7 @@ End
 		Private Sub multidaySelect(day as integer)
 		  dim selectedDay as Xojo.Core.Date = new Xojo.Core.Date(showingYear, showingMonth, day, 0, 0, 0, 1, xojo.core.TimeZone.Current)
 		  if startDate <> Nil then
-		     select case selectedDay.compareTo(startdate)
+		    select case selectedDay.compareTo(startdate)
 		    case -1
 		      startDate = selectedDay
 		      endDate = nil
@@ -619,6 +621,12 @@ End
 		    
 		  end if
 		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub refresh()
+		  setUIForShowingDate()
 		End Sub
 	#tag EndMethod
 
@@ -701,6 +709,7 @@ End
 		  
 		  highlight()
 		  
+		  
 		End Sub
 	#tag EndMethod
 
@@ -742,7 +751,7 @@ End
 			    
 			  end if
 			  
-			  setUIForShowingDate()
+			  'setUIForShowingDate()
 			End Set
 		#tag EndSetter
 		allowMultiDay As boolean
@@ -771,7 +780,7 @@ End
 			    
 			  end if
 			  
-			  setUIForShowingDate()
+			  'setUIForShowingDate()
 			End Set
 		#tag EndSetter
 		allowPastDates As boolean

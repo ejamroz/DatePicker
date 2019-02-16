@@ -29,6 +29,8 @@ Begin Window Window1
    Begin CalendarPicker CalendarPicker1
       AcceptFocus     =   False
       AcceptTabs      =   True
+      allowMultiDay   =   False
+      allowPastDates  =   False
       AutoDeactivate  =   True
       BackColor       =   &cFFFFFF00
       Backdrop        =   0
@@ -330,6 +332,7 @@ End
 	#tag Event
 		Sub Action()
 		  CalendarPicker1.allowMultiDay = me.Value
+		  CalendarPicker1.refresh()
 		  getDates()
 		End Sub
 	#tag EndEvent
@@ -338,6 +341,7 @@ End
 	#tag Event
 		Sub Action()
 		  CalendarPicker1.allowPastDates = me.Value
+		  CalendarPicker1.refresh()
 		  getDates()
 		End Sub
 	#tag EndEvent
