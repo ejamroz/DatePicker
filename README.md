@@ -1,5 +1,5 @@
 # DatePicker
-A customizable single and multiday date picker control for Xojo projects.
+A customizable single and multi-day date picker control for Xojo projects.
 
 <span>
   <img src="/Graphics/singleDayShot.png" alt="drawing" width="200" height="295"/>
@@ -13,7 +13,7 @@ A customizable single and multiday date picker control for Xojo projects.
 
 ## Functions
 * Allow single date selection
-* Allow multidate selection
+* Allow multi-date selection
 * Leap year compliant
 * Easily customizable color schemes
 * Force selection of present dates or allow all possible dates
