@@ -436,12 +436,66 @@ End
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Sub configureActiveDays()
+		  dim today as Xojo.Core.Date = xojo.core.Date.Now()
+		  if not mAllowPast and isShowing(today) then
+		    for ii as integer = firstDayIndex to mapDayToIndex(today.Day)
+		      days(ii).deactivate()
+		      
+		    next
+		    
+		  end if
+		  
+		  if not mAllowPast and showingMonth = today.Month and showingYear = today.Year then
+		    MonthBackButton.deactivate()
+		    
+		  else
+		    MonthBackButton.activate()
+		    
+		  end if
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Sub destructor()
 		  for ii as integer = 0 to UBound(days)
 		    RemoveHandler days(ii).ClickedOn, Addressof handleDayClickedOn
 		    
 		  next
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub displayDaysInMonth()
+		  using DateModule
+		  
+		  dim firstShowingDay as Xojo.Core.Date = new Xojo.Core.Date(showingYear, showingMonth, 1, 1, 1, 1, 1, xojo.core.TimeZone.Current)
+		  firstDayIndex = firstShowingDay.DayOfWeek - 1
+		  dim lastDayIndex as integer = mapDayToIndex(getNumberOfDaysInMonth(firstShowingDay))
+		  
+		  for ii as integer = 0 to UBound(days)
+		    if ii < firstDayIndex or ii > lastDayIndex then
+		      days(ii).makeInvisible()
+		      
+		    Else
+		      days(ii).makeVisible()
+		      days(ii).setDay(mapIndexToDay(ii))
+		      
+		    end if
+		    
+		    
+		  next
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub displayMonthTitle()
+		  MonthLabel.text = DateModule.integerToMonth(showingMonth)
+		  if isShowingYear then
+		    MonthLabel.text = MonthLabel.Text + " " + str(showingYear)
+		    
+		  end if
 		End Sub
 	#tag EndMethod
 
@@ -669,48 +723,9 @@ End
 
 	#tag Method, Flags = &h21
 		Private Sub setUIForShowingDate()
-		  using DateModule
-		  
-		  dim firstShowingDay as Xojo.Core.Date = new Xojo.Core.Date(showingYear, showingMonth, 1, 1, 1, 1, 1, xojo.core.TimeZone.Current)
-		  firstDayIndex = firstShowingDay.DayOfWeek - 1
-		  dim lastDayIndex as integer = mapDayToIndex(getNumberOfDaysInMonth(firstShowingDay))
-		  
-		  for ii as integer = 0 to UBound(days)
-		    if ii < firstDayIndex or ii > lastDayIndex then
-		      days(ii).makeInvisible()
-		      
-		    Else
-		      days(ii).makeVisible()
-		      days(ii).setDay(mapIndexToDay(ii))
-		      
-		    end if
-		    
-		    
-		  next
-		  
-		  dim today as Xojo.Core.Date = xojo.core.Date.Now()
-		  if not mAllowPast and isShowing(today) then
-		    for ii as integer = firstDayIndex to mapDayToIndex(today.Day)
-		      days(ii).deactivate()
-		      
-		    next
-		    
-		  end if
-		  
-		  MonthLabel.text = DateModule.integerToMonth(showingMonth)
-		  if isShowingYear then
-		    MonthLabel.text = MonthLabel.Text + " " + str(showingYear)
-		    
-		  end if
-		  
-		  if not mAllowPast and showingMonth = today.Month and showingYear = today.Year then
-		    MonthBackButton.deactivate()
-		    
-		  else
-		    MonthBackButton.activate()
-		    
-		  end if
-		  
+		  displayMonthTitle()
+		  displayDaysInMonth()
+		  configureActiveDays()
 		  highlight()
 		  
 		  
