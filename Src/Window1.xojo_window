@@ -470,6 +470,11 @@ End
 		  end if
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  me.FillColor = CalendarDay.kDefaultHighlightColor
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty

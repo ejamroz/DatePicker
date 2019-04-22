@@ -142,7 +142,7 @@ End
 	#tag Method, Flags = &h0
 		Sub activate()
 		  isActive = true
-		  DayLabel.TextColor = kActiveTextColor
+		  DayLabel.TextColor = kActiveDayColor
 		End Sub
 	#tag EndMethod
 
@@ -151,12 +151,19 @@ End
 		  BGLeft.FillColor = kBgColor
 		  BGRight.FillColor = kBgColor
 		  Foreground.FillColor = kBgColor
+		  if isActive then
+		    DayLabel.TextColor = kActiveDayColor
+		    
+		  else
+		    DayLabel.TextColor = kInActiveTextColor
+		    
+		  end if
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub constructor()
-		  setHighlightColor(&c4286f400)
+		  setHighlightColor(kDefaultHighlightColor)
 		End Sub
 	#tag EndMethod
 
@@ -166,6 +173,19 @@ End
 		  clearHighlight()
 		  DayLabel.TextColor = kInActiveTextColor
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function getTextColor(cc as color) As color
+		  const kThreashold = 186
+		  if cc.red * 0.299 + cc.Green * 0.587 + cc.Blue * 0.114 > kThreashold then
+		    Return &c00000100
+		    
+		  else
+		    return &cFFFFFF00
+		    
+		  end if
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
@@ -186,6 +206,7 @@ End
 		  Foreground.FillColor = highlightColor
 		  BGLeft.FillColor = kBgColor
 		  BGRight.FillColor = kBgColor
+		  DayLabel.TextColor = selectedDayTextColor
 		End Sub
 	#tag EndMethod
 
@@ -194,6 +215,7 @@ End
 		  Foreground.FillColor = highlightColor
 		  BGLeft.FillColor = highlightTint
 		  BGRight.FillColor = kBgColor
+		  DayLabel.TextColor = selectedDayTextColor
 		End Sub
 	#tag EndMethod
 
@@ -202,6 +224,7 @@ End
 		  Foreground.FillColor = highlightTint
 		  BGLeft.FillColor = highlightTint
 		  BGRight.FillColor = highlightTint
+		  DayLabel.TextColor = kActiveDayColor
 		End Sub
 	#tag EndMethod
 
@@ -210,6 +233,7 @@ End
 		  Foreground.FillColor = highlightColor
 		  BGRight.FillColor = highlightTint
 		  BGLeft.FillColor = kBgColor
+		  DayLabel.TextColor = selectedDayTextColor
 		End Sub
 	#tag EndMethod
 
@@ -230,7 +254,6 @@ End
 		  BGRight.Visible = true
 		  Foreground.Visible = true
 		  DayLabel.Visible = true
-		  activate()
 		End Sub
 	#tag EndMethod
 
@@ -244,6 +267,7 @@ End
 		Sub setHighlightColor(cc as color)
 		  highlightColor = cc
 		  highlightTint = getTint(highlightColor)
+		  selectedDayTextColor = getTextColor(highlightColor)
 		  Foreground.BorderColor = highlightColor
 		End Sub
 	#tag EndMethod
@@ -266,11 +290,18 @@ End
 		Private isActive As boolean = true
 	#tag EndProperty
 
+	#tag Property, Flags = &h21
+		Private selectedDayTextColor As color
+	#tag EndProperty
 
-	#tag Constant, Name = kActiveTextColor, Type = Color, Dynamic = False, Default = \"&c000002", Scope = Private
+
+	#tag Constant, Name = kActiveDayColor, Type = Color, Dynamic = False, Default = \"&c000001", Scope = Private
 	#tag EndConstant
 
 	#tag Constant, Name = kBgColor, Type = Color, Dynamic = False, Default = \"&cFFFFFF", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = kDefaultHighlightColor, Type = Color, Dynamic = False, Default = \"&c4286F4", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = kInActiveTextColor, Type = Color, Dynamic = False, Default = \"&cA1A199", Scope = Private
