@@ -644,38 +644,81 @@ End
 	#tag Method, Flags = &h21
 		Private Sub multidaySelect(day as integer)
 		  dim selectedDay as Xojo.Core.Date = new Xojo.Core.Date(showingYear, showingMonth, day, 0, 0, 0, 1, xojo.core.TimeZone.Current)
-		  if startDate <> Nil then
-		    select case selectedDay.compareTo(startdate)
-		    case -1
+		  select case currentlySelecting
+		  case DateSelection.START_DATE
+		    startDate = selectedDay
+		    if endDate <> nil and selectedDay.compareTo(endDate) = 1 then
+		      endDate = nil
+		      currentlySelecting = DateSelection.END_DATE
+		      
+		    end if
+		    
+		  case DateSelection.END_DATE
+		    if selectedDay.compareTo(startDate) = 1 then
+		      endDate = selectedDay
+		      currentlySelecting = DateSelection.NONE
+		      
+		    else
 		      startDate = selectedDay
+		      
+		    end if
+		    
+		  case DateSelection.NONE
+		    startDate = selectedDay
+		    currentlySelecting = DateSelection.END_DATE
+		    if selectedDay.compareTo(endDate) >= 0 then
 		      endDate = nil
 		      
-		    case 1
-		      if enddate <> Nil then 
-		        if enddate.compareTo(selectedDay) > 0 then
-		          endDate = selectedDay
-		          
-		        else
-		          startDate = selectedDay
-		          enddate = nil
-		          
-		        end if
-		        
-		      else
-		        enddate = selectedDay
-		        
-		      end if
-		      
-		    case 0 
-		      enddate = startDate
-		      
-		    end Select
+		    end if
 		    
-		  else
-		    startDate = selectedDay
-		    
-		  end if
+		  end select
 		  
+		  
+		  'dim selectedDay as Xojo.Core.Date = new Xojo.Core.Date(showingYear, showingMonth, day, 0, 0, 0, 1, xojo.core.TimeZone.Current)
+		  '
+		  'select case forcedSelection
+		  'case DateSelection.START_DATE
+		  'startDate = selectedDay
+		  '
+		  ''case DateSelection.END_DATE
+		  ''endDate = selectedDay
+		  '
+		  'else
+		  'if startDate <> Nil then
+		  'select case selectedDay.compareTo(startdate)
+		  'case -1
+		  'startDate = selectedDay
+		  'endDate = nil
+		  '
+		  'case 1
+		  'if enddate <> Nil then 
+		  'if enddate.compareTo(selectedDay) > 0 then
+		  'endDate = selectedDay
+		  '
+		  'else
+		  'startDate = selectedDay
+		  'enddate = nil
+		  '
+		  'end if
+		  '
+		  'else
+		  'enddate = selectedDay
+		  '
+		  'end if
+		  '
+		  'case 0 
+		  'enddate = startDate
+		  '
+		  'end Select
+		  '
+		  'else
+		  'startDate = selectedDay
+		  '
+		  'end if
+		  '
+		  'end select
+		  '
+		  'forcedSelection = DateSelection.NONE
 		End Sub
 	#tag EndMethod
 
@@ -807,6 +850,10 @@ End
 	#tag EndComputedProperty
 
 	#tag Property, Flags = &h21
+		Private currentlySelecting As DateSelection
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
 		Private days() As CalendarDay
 	#tag EndProperty
 
@@ -865,6 +912,13 @@ End
 
 	#tag Constant, Name = kWeekCount, Type = Double, Dynamic = False, Default = \"7", Scope = Private
 	#tag EndConstant
+
+
+	#tag Enum, Name = DateSelection, Type = Integer, Flags = &h0
+		START_DATE
+		  END_DATE
+		NONE
+	#tag EndEnum
 
 
 #tag EndWindowCode

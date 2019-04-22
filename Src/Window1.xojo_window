@@ -9,7 +9,7 @@ Begin Window Window1
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   413
+   Height          =   403
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -25,7 +25,7 @@ Begin Window Window1
    Resizeable      =   False
    Title           =   "Calendar"
    Visible         =   True
-   Width           =   264
+   Width           =   265
    Begin CalendarPicker CalendarPicker1
       AcceptFocus     =   False
       AcceptTabs      =   True
@@ -51,7 +51,7 @@ Begin Window Window1
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   72
+      Top             =   62
       Transparent     =   True
       UseFocusRing    =   False
       Visible         =   True
@@ -119,7 +119,7 @@ Begin Window Window1
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   340
+      Top             =   330
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -154,7 +154,7 @@ Begin Window Window1
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   372
+      Top             =   362
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -196,10 +196,10 @@ Begin Window Window1
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   339
+      Top             =   329
       Transparent     =   False
       Underline       =   False
-      UseFocusRing    =   True
+      UseFocusRing    =   False
       Visible         =   True
       Width           =   145
    End
@@ -239,10 +239,10 @@ Begin Window Window1
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   371
+      Top             =   361
       Transparent     =   False
       Underline       =   False
-      UseFocusRing    =   True
+      UseFocusRing    =   False
       Visible         =   True
       Width           =   145
    End
@@ -305,12 +305,73 @@ Begin Window Window1
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   36
+      Top             =   29
       Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
       Width           =   90
+   End
+   Begin Label Label3
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   129
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   2
+      Selectable      =   False
+      TabIndex        =   9
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Selection Color"
+      TextAlign       =   0
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   12.0
+      TextUnit        =   0
+      Top             =   30
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   100
+   End
+   Begin RoundRectangle RoundRectangle1
+      AutoDeactivate  =   True
+      BorderColor     =   &c00000000
+      BorderWidth     =   0
+      Enabled         =   True
+      FillColor       =   &c4286F400
+      Height          =   24
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   221
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      OvalHeight      =   16
+      OvalWidth       =   16
+      Scope           =   2
+      TabIndex        =   10
+      TabPanelIndex   =   0
+      Top             =   29
+      Transparent     =   False
+      Visible         =   True
+      Width           =   24
    End
 End
 #tag EndWindow
@@ -370,6 +431,10 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
+#tag Events StartDateField
+#tag EndEvents
+#tag Events EndDateField
+#tag EndEvents
 #tag Events CheckBox2
 	#tag Event
 		Sub Action()
@@ -384,6 +449,25 @@ End
 		Sub Action()
 		  CalendarPicker1.isShowingYear = me.Value
 		  CalendarPicker1.refresh()
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events RoundRectangle1
+	#tag Event
+		Function MouseDown(X As Integer, Y As Integer) As Boolean
+		  return true
+		End Function
+	#tag EndEvent
+	#tag Event
+		Sub MouseUp(X As Integer, Y As Integer)
+		  Dim c  As Color = me.FillColor
+		  Dim b As Boolean
+		  if SelectColor(c, "Select a Color") then 
+		    me.FillColor = c
+		    CalendarPicker1.setHighlightColor(c)
+		    CalendarPicker1.refresh()
+		    
+		  end if
 		End Sub
 	#tag EndEvent
 #tag EndEvents
