@@ -139,6 +139,20 @@ End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Event
+		Sub MouseEnter()
+		  RaiseEvent MouseEnter(val(dayLabel.text))
+		  
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub MouseExit()
+		  RaiseEvent MouseExit(val(dayLabel.text))
+		End Sub
+	#tag EndEvent
+
+
 	#tag Method, Flags = &h0
 		Sub activate()
 		  isActive = true
@@ -275,6 +289,14 @@ End
 
 	#tag Hook, Flags = &h0
 		Event ClickedOn(day as integer)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event mouseEnter(day as integer)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event mouseExit(day as integer)
 	#tag EndHook
 
 

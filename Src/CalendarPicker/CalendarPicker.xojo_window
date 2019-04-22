@@ -439,7 +439,9 @@ End
 	#tag Method, Flags = &h0
 		Sub destructor()
 		  for ii as integer = 0 to UBound(days)
-		    RemoveHandler days(ii).ClickedOn, Addressof handleDayClickedOn
+		    RemoveHandler days(ii).ClickedOn, WeakAddressof handleDayClickedOn
+		    RemoveHandler days(ii).MouseEnter, WeakAddressOf handleMouseEnter
+		    RemoveHandler days(ii).MouseExit, WeakAddressOf handleMouseExit
 		    
 		  next
 		End Sub
@@ -550,7 +552,25 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Sub highlight()
+		Private Sub handleMouseEnter(value as CalendarDay, day as integer)
+		  if allowMultiDay and startDate <> Nil then
+		    if day > startDate.day or showingMonth > startDate.Month then 
+		      highlight(mapDayToIndex(day))
+		      
+		    end if
+		    
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub handleMouseExit(value as CalendarDay, day as integer)
+		  highlight()
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub highlight(optional dynamicIndex as integer = -1)
 		  dim startIndex,endIndex as integer
 		  startIndex = -1
 		  endIndex = -1
@@ -569,7 +589,13 @@ End
 		      endIndex = getIndexForDate(endDate)
 		      
 		    else
-		      endIndex = startIndex
+		      if dynamicIndex = -1 then 
+		        endIndex = startIndex
+		        
+		      else
+		        endIndex = dynamicIndex
+		        
+		      end if
 		      
 		    end if
 		    
@@ -605,7 +631,10 @@ End
 		  dim currentLeft, currentTop as integer 
 		  for ii as integer = 0 to kMaxDays - 1
 		    dim cd as new CalendarDay()
-		    AddHandler cd.ClickedOn, AddressOf handleDayClickedOn
+		    AddHandler cd.ClickedOn, WeakAddressOf handleDayClickedOn
+		    AddHandler cd.MouseEnter, WeakAddressOf handleMouseEnter
+		    AddHandler cd.MouseExit, WeakAddressOf handleMouseExit
+		    
 		    currentTop = (ii \ (kWeekCount)) * kPadding + (ii \ (kWeekCount)) * kDayHeight + (Label1.Top + label1.Height)
 		    currentLeft = (ii mod kWeekCount) * kDayWidth
 		    cd.EmbedWithin(Rectangle1,  currentLeft, currentTop, cd.Width, cd.Height)
@@ -643,14 +672,14 @@ End
 		  select case currentlySelecting
 		  case DateSelection.START_DATE
 		    startDate = selectedDay
+		    currentlySelecting = DateSelection.END_DATE
 		    if endDate <> nil and selectedDay.compareTo(endDate) = 1 then
 		      endDate = nil
-		      currentlySelecting = DateSelection.END_DATE
 		      
 		    end if
 		    
 		  case DateSelection.END_DATE
-		    if selectedDay.compareTo(startDate) = 1 then
+		    if selectedDay.compareTo(startDate) >= 0 then
 		      endDate = selectedDay
 		      currentlySelecting = DateSelection.NONE
 		      
@@ -669,52 +698,6 @@ End
 		    
 		  end select
 		  
-		  
-		  'dim selectedDay as Xojo.Core.Date = new Xojo.Core.Date(showingYear, showingMonth, day, 0, 0, 0, 1, xojo.core.TimeZone.Current)
-		  '
-		  'select case forcedSelection
-		  'case DateSelection.START_DATE
-		  'startDate = selectedDay
-		  '
-		  ''case DateSelection.END_DATE
-		  ''endDate = selectedDay
-		  '
-		  'else
-		  'if startDate <> Nil then
-		  'select case selectedDay.compareTo(startdate)
-		  'case -1
-		  'startDate = selectedDay
-		  'endDate = nil
-		  '
-		  'case 1
-		  'if enddate <> Nil then 
-		  'if enddate.compareTo(selectedDay) > 0 then
-		  'endDate = selectedDay
-		  '
-		  'else
-		  'startDate = selectedDay
-		  'enddate = nil
-		  '
-		  'end if
-		  '
-		  'else
-		  'enddate = selectedDay
-		  '
-		  'end if
-		  '
-		  'case 0 
-		  'enddate = startDate
-		  '
-		  'end Select
-		  '
-		  'else
-		  'startDate = selectedDay
-		  '
-		  'end if
-		  '
-		  'end select
-		  '
-		  'forcedSelection = DateSelection.NONE
 		End Sub
 	#tag EndMethod
 
