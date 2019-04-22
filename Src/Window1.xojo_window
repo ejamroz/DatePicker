@@ -9,7 +9,7 @@ Begin Window Window1
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   377
+   Height          =   413
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -42,16 +42,16 @@ Begin Window Window1
       HelpTag         =   ""
       InitialParent   =   ""
       Left            =   20
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
-      LockTop         =   True
+      LockTop         =   False
       Scope           =   2
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   36
+      Top             =   72
       Transparent     =   True
       UseFocusRing    =   False
       Visible         =   True
@@ -102,11 +102,11 @@ Begin Window Window1
       InitialParent   =   ""
       Italic          =   False
       Left            =   20
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
-      LockTop         =   True
+      LockTop         =   False
       Multiline       =   False
       Scope           =   0
       Selectable      =   False
@@ -119,7 +119,7 @@ Begin Window Window1
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   304
+      Top             =   340
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -137,11 +137,11 @@ Begin Window Window1
       InitialParent   =   ""
       Italic          =   False
       Left            =   20
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
-      LockTop         =   True
+      LockTop         =   False
       Multiline       =   False
       Scope           =   0
       Selectable      =   False
@@ -154,7 +154,7 @@ Begin Window Window1
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   336
+      Top             =   372
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -179,11 +179,11 @@ Begin Window Window1
       Italic          =   False
       Left            =   99
       LimitText       =   0
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
-      LockTop         =   True
+      LockTop         =   False
       Mask            =   ""
       Password        =   False
       ReadOnly        =   True
@@ -196,7 +196,7 @@ Begin Window Window1
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   303
+      Top             =   339
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
@@ -222,11 +222,11 @@ Begin Window Window1
       Italic          =   False
       Left            =   99
       LimitText       =   0
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
-      LockTop         =   True
+      LockTop         =   False
       Mask            =   ""
       Password        =   False
       ReadOnly        =   True
@@ -239,7 +239,7 @@ Begin Window Window1
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   335
+      Top             =   371
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
@@ -278,6 +278,39 @@ Begin Window Window1
       Value           =   False
       Visible         =   True
       Width           =   122
+   End
+   Begin CheckBox CheckBox3
+      AutoDeactivate  =   True
+      Bold            =   False
+      Caption         =   "Show year"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   2
+      State           =   0
+      TabIndex        =   8
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   36
+      Transparent     =   False
+      Underline       =   False
+      Value           =   False
+      Visible         =   True
+      Width           =   90
    End
 End
 #tag EndWindow
@@ -343,6 +376,14 @@ End
 		  CalendarPicker1.allowPastDates = me.Value
 		  CalendarPicker1.refresh()
 		  getDates()
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBox3
+	#tag Event
+		Sub Action()
+		  CalendarPicker1.isShowingYear = me.Value
+		  CalendarPicker1.refresh()
 		End Sub
 	#tag EndEvent
 #tag EndEvents

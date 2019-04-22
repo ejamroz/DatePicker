@@ -698,6 +698,10 @@ End
 		  end if
 		  
 		  MonthLabel.text = DateModule.integerToMonth(showingMonth)
+		  if isShowingYear then
+		    MonthLabel.text = MonthLabel.Text + " " + str(showingYear)
+		    
+		  end if
 		  
 		  if not mAllowPast and showingMonth = today.Month and showingYear = today.Year then
 		    MonthBackButton.deactivate()
@@ -808,6 +812,10 @@ End
 
 	#tag Property, Flags = &h21
 		Private isMultiday As boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		isShowingYear As boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
@@ -1066,6 +1074,11 @@ End
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="allowPastDates"
+		Group="Behavior"
+		Type="boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="isShowingYear"
 		Group="Behavior"
 		Type="boolean"
 	#tag EndViewProperty
