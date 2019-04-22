@@ -564,7 +564,8 @@ End
 		      startIndex = getIndexForDate(startDate)
 		      
 		    else
-		      startIndex = 100
+		      const kUnreachableIndex = 100
+		      startIndex =kUnreachableIndex
 		      
 		    end if
 		    
