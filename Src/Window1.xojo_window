@@ -396,6 +396,7 @@ End
 		    EndDateField.text = ""
 		    
 		  end if
+		  
 		End Sub
 	#tag EndMethod
 
@@ -405,20 +406,7 @@ End
 #tag Events CalendarPicker1
 	#tag Event
 		Sub DateSelected()
-		  using xojo.core
-		  
-		  if me.getStartDate() <> Nil then
-		    StartDateField.Text = me.getStartDate().ToText(Locale.Current, Date.FormatStyles.long, Date.FormatStyles.None)
-		    
-		  end if
-		  
-		  if me.getEndDate() <> Nil then
-		    EndDateField.Text = me.getEndDate().ToText(Locale.Current, Date.FormatStyles.long, Date.FormatStyles.None)
-		    
-		  else
-		    EndDateField.text = ""
-		    
-		  end if
+		  getDates()
 		End Sub
 	#tag EndEvent
 #tag EndEvents

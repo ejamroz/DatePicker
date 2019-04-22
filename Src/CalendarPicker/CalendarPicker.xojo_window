@@ -787,12 +787,26 @@ End
 		#tag Setter
 			Set
 			  isMultiday = value
-			  if not isMultiday then
+			  if isMultiday then
+			    if startdate <> Nil then
+			      if endDate <> Nil then
+			        currentlySelecting = DateSelection.NONE
+			        
+			      else
+			        currentlySelecting = DateSelection.END_DATE
+			        
+			      end if
+			      
+			    else
+			      currentlySelecting = DateSelection.START_DATE
+			      
+			    end if
+			    
+			  else
 			    enddate = startDate
+			    currentlySelecting = DateSelection.NONE
 			    
 			  end if
-			  
-			  'setUIForShowingDate()
 			End Set
 		#tag EndSetter
 		allowMultiDay As boolean
@@ -892,7 +906,7 @@ End
 	#tag EndConstant
 
 
-	#tag Enum, Name = DateSelection, Type = Integer, Flags = &h0
+	#tag Enum, Name = DateSelection, Type = Integer, Flags = &h21
 		START_DATE
 		  END_DATE
 		NONE
