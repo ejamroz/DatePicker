@@ -165,6 +165,8 @@ End
 		  BGLeft.FillColor = kBgColor
 		  BGRight.FillColor = kBgColor
 		  Foreground.FillColor = kBgColor
+		  DayLabel.Bold = false
+		  
 		  if isActive then
 		    DayLabel.TextColor = kActiveDayColor
 		    
@@ -252,6 +254,23 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub highlightToday()
+		  if isActive then
+		    DayLabel.TextColor = kDefaultTodayColor
+		    
+		  else
+		    DayLabel.TextColor = getTint(kDefaultTodayColor)
+		    
+		  end if
+		  
+		  DayLabel.Bold = true
+		  BGLeft.FillColor = kBgColor
+		  BGRight.FillColor = kBgColor
+		  Foreground.FillColor = kBgColor
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub makeInvisible()
 		  clearHighlight()
 		  BGLeft.Visible = false
@@ -324,6 +343,9 @@ End
 	#tag EndConstant
 
 	#tag Constant, Name = kDefaultHighlightColor, Type = Color, Dynamic = False, Default = \"&c4286F4", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = kDefaultTodayColor, Type = Color, Dynamic = False, Default = \"&cE30000", Scope = Private
 	#tag EndConstant
 
 	#tag Constant, Name = kInActiveTextColor, Type = Color, Dynamic = False, Default = \"&cA1A199", Scope = Private

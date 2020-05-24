@@ -9,7 +9,7 @@ Begin Window Window1
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   403
+   Height          =   441
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -38,10 +38,11 @@ Begin Window Window1
       Enabled         =   True
       EraseBackground =   True
       HasBackColor    =   False
-      Height          =   256
+      Height          =   266
       HelpTag         =   ""
       InitialParent   =   ""
-      Left            =   20
+      isShowingYear   =   False
+      Left            =   15
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -51,11 +52,11 @@ Begin Window Window1
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   62
+      Top             =   87
       Transparent     =   True
       UseFocusRing    =   False
       Visible         =   True
-      Width           =   224
+      Width           =   234
    End
    Begin CheckBox CheckBox1
       AutoDeactivate  =   True
@@ -119,7 +120,7 @@ Begin Window Window1
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   330
+      Top             =   368
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -154,7 +155,7 @@ Begin Window Window1
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   362
+      Top             =   400
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -196,7 +197,7 @@ Begin Window Window1
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   329
+      Top             =   367
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   False
@@ -239,7 +240,7 @@ Begin Window Window1
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   361
+      Top             =   399
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   False
@@ -323,7 +324,7 @@ Begin Window Window1
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   129
+      Left            =   126
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -341,7 +342,7 @@ Begin Window Window1
       TextFont        =   "System"
       TextSize        =   12.0
       TextUnit        =   0
-      Top             =   30
+      Top             =   55
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -357,21 +358,87 @@ Begin Window Window1
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   221
+      Left            =   218
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      OvalHeight      =   16
-      OvalWidth       =   16
+      OvalHeight      =   7
+      OvalWidth       =   7
       Scope           =   2
       TabIndex        =   10
       TabPanelIndex   =   0
-      Top             =   29
+      Top             =   54
       Transparent     =   False
       Visible         =   True
       Width           =   24
+   End
+   Begin CheckBox CheckBox4
+      AutoDeactivate  =   True
+      Bold            =   False
+      Caption         =   "Allow today"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   2
+      State           =   0
+      TabIndex        =   11
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   54
+      Transparent     =   False
+      Underline       =   False
+      Value           =   False
+      Visible         =   True
+      Width           =   115
+   End
+   Begin CheckBox CheckBox5
+      AutoDeactivate  =   True
+      Bold            =   False
+      Caption         =   "Show Today"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   122
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   2
+      State           =   0
+      TabIndex        =   12
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   29
+      Transparent     =   False
+      Underline       =   False
+      Value           =   False
+      Visible         =   True
+      Width           =   115
    End
 End
 #tag EndWindow
@@ -419,10 +486,6 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events StartDateField
-#tag EndEvents
-#tag Events EndDateField
-#tag EndEvents
 #tag Events CheckBox2
 	#tag Event
 		Sub Action()
@@ -461,6 +524,24 @@ End
 	#tag Event
 		Sub Open()
 		  me.FillColor = CalendarDay.kDefaultHighlightColor
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBox4
+	#tag Event
+		Sub Action()
+		  CalendarPicker1.allowToday= me.Value
+		  CalendarPicker1.refresh()
+		  getDates()
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBox5
+	#tag Event
+		Sub Action()
+		  CalendarPicker1.highlightToday = me.Value
+		  CalendarPicker1.refresh()
+		  getDates()
 		End Sub
 	#tag EndEvent
 #tag EndEvents

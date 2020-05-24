@@ -10,7 +10,7 @@ Begin ContainerControl CalendarPicker
    Enabled         =   True
    EraseBackground =   True
    HasBackColor    =   False
-   Height          =   256
+   Height          =   266
    HelpTag         =   ""
    InitialParent   =   ""
    Left            =   0
@@ -25,14 +25,14 @@ Begin ContainerControl CalendarPicker
    Transparent     =   True
    UseFocusRing    =   False
    Visible         =   True
-   Width           =   224
-   Begin Rectangle Rectangle1
+   Width           =   234
+   Begin roundrectangle Rectangle1
       AutoDeactivate  =   True
+      BorderColor     =   &c00000000
       BorderWidth     =   0
-      BottomRightColor=   &c00000000
       Enabled         =   True
       FillColor       =   &cFFFFFF00
-      Height          =   256
+      Height          =   266
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -42,14 +42,15 @@ Begin ContainerControl CalendarPicker
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
+      OvalHeight      =   7
+      OvalWidth       =   7
       Scope           =   2
       TabIndex        =   0
       TabPanelIndex   =   0
       Top             =   0
-      TopLeftColor    =   &c00000000
       Transparent     =   False
       Visible         =   True
-      Width           =   224
+      Width           =   234
       Begin Label MonthLabel
          AutoDeactivate  =   True
          Bold            =   False
@@ -61,7 +62,7 @@ Begin ContainerControl CalendarPicker
          Index           =   -2147483648
          InitialParent   =   "Rectangle1"
          Italic          =   False
-         Left            =   32
+         Left            =   37
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -79,7 +80,7 @@ Begin ContainerControl CalendarPicker
          TextFont        =   "System"
          TextSize        =   18.0
          TextUnit        =   0
-         Top             =   0
+         Top             =   5
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -96,7 +97,7 @@ Begin ContainerControl CalendarPicker
          Index           =   -2147483648
          InitialParent   =   "Rectangle1"
          Italic          =   False
-         Left            =   32
+         Left            =   37
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -114,7 +115,7 @@ Begin ContainerControl CalendarPicker
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   32
+         Top             =   37
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -131,7 +132,7 @@ Begin ContainerControl CalendarPicker
          Index           =   -2147483648
          InitialParent   =   "Rectangle1"
          Italic          =   False
-         Left            =   64
+         Left            =   69
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -149,7 +150,7 @@ Begin ContainerControl CalendarPicker
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   32
+         Top             =   37
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -166,7 +167,7 @@ Begin ContainerControl CalendarPicker
          Index           =   -2147483648
          InitialParent   =   "Rectangle1"
          Italic          =   False
-         Left            =   96
+         Left            =   101
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -184,7 +185,7 @@ Begin ContainerControl CalendarPicker
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   32
+         Top             =   37
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -201,7 +202,7 @@ Begin ContainerControl CalendarPicker
          Index           =   -2147483648
          InitialParent   =   "Rectangle1"
          Italic          =   False
-         Left            =   128
+         Left            =   133
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -219,7 +220,7 @@ Begin ContainerControl CalendarPicker
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   32
+         Top             =   37
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -236,7 +237,7 @@ Begin ContainerControl CalendarPicker
          Index           =   -2147483648
          InitialParent   =   "Rectangle1"
          Italic          =   False
-         Left            =   160
+         Left            =   165
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -254,7 +255,7 @@ Begin ContainerControl CalendarPicker
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   32
+         Top             =   37
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -271,7 +272,7 @@ Begin ContainerControl CalendarPicker
          Index           =   -2147483648
          InitialParent   =   "Rectangle1"
          Italic          =   False
-         Left            =   192
+         Left            =   197
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -289,7 +290,7 @@ Begin ContainerControl CalendarPicker
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   32
+         Top             =   37
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -306,7 +307,7 @@ Begin ContainerControl CalendarPicker
          Index           =   -2147483648
          InitialParent   =   "Rectangle1"
          Italic          =   False
-         Left            =   0
+         Left            =   5
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -324,7 +325,7 @@ Begin ContainerControl CalendarPicker
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   32
+         Top             =   37
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -344,7 +345,7 @@ Begin ContainerControl CalendarPicker
          Height          =   32
          HelpTag         =   ""
          InitialParent   =   "Rectangle1"
-         Left            =   192
+         Left            =   197
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -354,7 +355,7 @@ Begin ContainerControl CalendarPicker
          TabIndex        =   8
          TabPanelIndex   =   0
          TabStop         =   True
-         Top             =   0
+         Top             =   5
          Transparent     =   True
          UseFocusRing    =   False
          Visible         =   True
@@ -374,7 +375,7 @@ Begin ContainerControl CalendarPicker
          Height          =   32
          HelpTag         =   ""
          InitialParent   =   "Rectangle1"
-         Left            =   0
+         Left            =   5
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -384,7 +385,7 @@ Begin ContainerControl CalendarPicker
          TabIndex        =   9
          TabPanelIndex   =   0
          TabStop         =   True
-         Top             =   0
+         Top             =   5
          Transparent     =   True
          UseFocusRing    =   False
          Visible         =   True
@@ -440,7 +441,6 @@ End
 		Sub destructor()
 		  for ii as integer = 0 to UBound(days)
 		    RemoveHandler days(ii).ClickedOn, WeakAddressof handleDayClickedOn
-		    RemoveHandler days(ii).MouseEnter, WeakAddressOf handleMouseEnter
 		    RemoveHandler days(ii).MouseExit, WeakAddressOf handleMouseExit
 		    
 		  next
@@ -459,20 +459,28 @@ End
 		  for ii as integer = 0 to UBound(days)
 		    if ii < firstDayIndex or ii > lastDayIndex then
 		      days(ii).makeInvisible()
+		      Continue
 		      
-		    Else
-		      days(ii).makeVisible()
-		      days(ii).setDay(mapIndexToDay(ii))
-		      if ii <= mapDayToIndex(today.Day) and not mAllowPast and isShowing(today) then 
-		        days(ii).deactivate()
-		        
-		      else
-		        days(ii).activate()
-		        
-		      end if
+		    end if 
+		    
+		    days(ii).makeVisible()
+		    days(ii).setDay(mapIndexToDay(ii))
+		    if ii < mapDayToIndex(today.Day) and not mAllowPast and isShowing(today) then 
+		      days(ii).deactivate()
+		      continue
 		      
 		    end if
 		    
+		    if ii = mapDayToIndex(today.Day) then
+		      if not mAllowToday and isShowing(today) then
+		        days(ii).deactivate()
+		        continue
+		        
+		      end if
+		      
+		    end if 
+		    
+		    days(ii).activate()
 		    
 		  next
 		End Sub
@@ -492,6 +500,16 @@ End
 		    
 		  else
 		    MonthBackButton.activate()
+		    
+		  end if
+		  
+		  if highlightToday and showingMonth = today.Month and showingYear = today.Year then
+		    MonthLabel.TextColor = kDefaultTodayColor
+		    MonthLabel.Bold = true
+		    
+		  else
+		    MonthLabel.TextColor = &c00000200
+		    MonthLabel.Bold = false
 		    
 		  end if
 		End Sub
@@ -552,18 +570,6 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Sub handleMouseEnter(value as CalendarDay, day as integer)
-		  if allowMultiDay and startDate <> Nil then
-		    if day > startDate.day or showingMonth > startDate.Month then 
-		      highlight(mapDayToIndex(day))
-		      
-		    end if
-		    
-		  end if
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
 		Private Sub handleMouseExit(value as CalendarDay, day as integer)
 		  highlight()
 		End Sub
@@ -618,6 +624,12 @@ End
 		      days(ii).highlightEnd()
 		      
 		    else
+		      if highlightToday and ii = mapDayToIndex(xojo.core.Date.Now().Day) and isShowing(xojo.core.date.Now()) then
+		        days(ii).highlightToday()
+		        Continue
+		        
+		      end if
+		      
 		      days(ii).clearHighlight()
 		      
 		    end if
@@ -628,15 +640,16 @@ End
 
 	#tag Method, Flags = &h21
 		Private Sub initializeDays()
+		  const kTop = 5
+		  const kLeft = 5
 		  dim currentLeft, currentTop as integer 
 		  for ii as integer = 0 to kMaxDays - 1
 		    dim cd as new CalendarDay()
 		    AddHandler cd.ClickedOn, WeakAddressOf handleDayClickedOn
-		    AddHandler cd.MouseEnter, WeakAddressOf handleMouseEnter
 		    AddHandler cd.MouseExit, WeakAddressOf handleMouseExit
 		    
 		    currentTop = (ii \ (kWeekCount)) * kPadding + (ii \ (kWeekCount)) * kDayHeight + (Label1.Top + label1.Height)
-		    currentLeft = (ii mod kWeekCount) * kDayWidth
+		    currentLeft = (ii mod kWeekCount) * kDayWidth + kLeft
 		    cd.EmbedWithin(Rectangle1,  currentLeft, currentTop, cd.Width, cd.Height)
 		    days.Append(cd)
 		    
@@ -834,11 +847,35 @@ End
 			    showingMonth = today.month
 			    
 			  end if
-			  
-			  'setUIForShowingDate()
 			End Set
 		#tag EndSetter
 		allowPastDates As boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return mAllowToday
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mAllowToday = value
+			  dim today as Xojo.Core.Date = xojo.core.date.Now()
+			  if startdate <> nil and startDate.compareTo(today) = 0 then
+			    startdate = nil
+			    enddate = nil
+			    
+			  end if
+			  
+			  if (showingMonth < today.Month and showingYear = today.Year) or showingyear < today.year then
+			    showingYear = today.year
+			    showingMonth = today.month
+			    
+			  end if
+			End Set
+		#tag EndSetter
+		allowToday As boolean
 	#tag EndComputedProperty
 
 	#tag Property, Flags = &h21
@@ -865,6 +902,10 @@ End
 		Private highlightTint As color
 	#tag EndProperty
 
+	#tag Property, Flags = &h0
+		highlightToday As boolean
+	#tag EndProperty
+
 	#tag Property, Flags = &h21
 		Private isMultiday As boolean
 	#tag EndProperty
@@ -875,6 +916,10 @@ End
 
 	#tag Property, Flags = &h21
 		Private mAllowPast As boolean = false
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private mAllowToday As boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
@@ -894,6 +939,9 @@ End
 	#tag EndConstant
 
 	#tag Constant, Name = kDayWidth, Type = Double, Dynamic = False, Default = \"32", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = kDefaultTodayColor, Type = Color, Dynamic = False, Default = \"&cE30000", Scope = Private
 	#tag EndConstant
 
 	#tag Constant, Name = kMaxDays, Type = Double, Dynamic = False, Default = \"42", Scope = Private
@@ -1141,6 +1189,16 @@ End
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="isShowingYear"
+		Group="Behavior"
+		Type="boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="allowToday"
+		Group="Behavior"
+		Type="boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="highlightToday"
 		Group="Behavior"
 		Type="boolean"
 	#tag EndViewProperty
